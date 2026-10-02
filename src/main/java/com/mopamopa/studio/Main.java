@@ -13,6 +13,8 @@ import java.io.IOException;
  *     <li>{@code --console}: runs the console demo of the Decorator pattern</li>
  *     <li>{@code --port=9090}: starts the web application on another port</li>
  * </ul>
+ * In the cloud (Render, Railway, etc.) the port is read from the {@code PORT}
+ * environment variable.
  */
 public final class Main {
 
@@ -23,7 +25,7 @@ public final class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        int port = DEFAULT_PORT;
+        int port = readPortFromEnvironment();
         for (String argument : args) {
             if ("--console".equals(argument)) {
                 ConsoleDemo.run();
@@ -42,5 +44,13 @@ public final class Main {
         System.out.println("Mopa-Mopa Studio is running at http://localhost:" + port);
         System.out.println("Press Ctrl+C to stop the server.");
         Runtime.getRuntime().addShutdownHook(new Thread(server::stop));
+    }
+
+    private static int readPortFromEnvironment() {
+        String value = System.getenv("PORT");
+        if (value == null || value.isBlank()) {
+            return DEFAULT_PORT;
+        }
+        return Integer.parseInt(value.trim());
     }
 }

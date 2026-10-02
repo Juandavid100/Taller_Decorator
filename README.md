@@ -137,6 +137,7 @@ mopa-mopa-studio/
 ├── GUIA_COMMITS.md            ← reparto de clases y commits entre los dos integrantes
 ├── pom.xml                    ← para abrirlo en IntelliJ / NetBeans / Eclipse (Maven)
 ├── run.sh / run.bat           ← compilar y ejecutar sin Maven
+├── Dockerfile                 ← imagen para desplegar en la nube
 ├── docs/screenshot.png
 └── src/main/
     ├── java/com/mopamopa/studio/
@@ -214,6 +215,24 @@ Después abrir **http://localhost:8080** en el navegador. Para usar otro puerto:
 mvn package
 java -jar target/mopa-mopa-studio-1.0.0.jar
 ```
+
+### Opción D: Docker
+
+```bash
+docker build -t mopa-mopa-studio .
+docker run -p 8080:8080 mopa-mopa-studio
+```
+
+### Despliegue en la nube (Render)
+
+La aplicación está preparada para la nube: lee el puerto de la variable de entorno `PORT` e incluye un `Dockerfile`.
+
+1. Crear una cuenta gratuita en https://render.com (se puede entrar con GitHub).
+2. **New → Web Service** → conectar el repositorio de GitHub.
+3. Render detecta el `Dockerfile` automáticamente. Elegir el plan **Free** y crear el servicio.
+4. Al terminar el despliegue, Render entrega una URL pública del tipo `https://<nombre>.onrender.com`.
+
+> En el plan gratuito el servicio se duerme tras 15 minutos sin visitas; la primera visita después tarda cerca de un minuto en despertarlo.
 
 ### Salida de la demo por consola
 
