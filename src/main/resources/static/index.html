@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mopa-Mopa Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+    <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="24" cy="24" r="22" fill="var(--gold)"/>
+            <circle cx="24" cy="24" r="16" fill="var(--resin-red)"/>
+            <circle cx="24" cy="24" r="10" fill="var(--resin-green)"/>
+            <circle cx="24" cy="24" r="5" fill="var(--wood)"/>
+        </svg>
+        <div>
+            <h1>Mopa-Mopa Studio</h1>
+            <p class="tagline">Pasto Varnish workshop &middot; build your piece one layer at a time</p>
+        </div>
+    </div>
+    <span class="pattern-badge">Decorator pattern</span>
+</header>
+
+<main class="layout">
+    <!-- STEP 1: concrete component -->
+    <section class="panel" aria-labelledby="step-piece">
+        <h2 id="step-piece"><span class="step">1</span> Choose a base piece</h2>
+        <p class="hint">This is the <strong>concrete component</strong>: a plain wooden piece with no decoration.</p>
+        <div id="piece-list" class="piece-list" role="radiogroup" aria-label="Base piece"></div>
+    </section>
+
+    <!-- STEP 2: decorators -->
+    <section class="panel" aria-labelledby="step-layers">
+        <h2 id="step-layers"><span class="step">2</span> Stack decoration layers</h2>
+        <p class="hint">Each layer is a <strong>decorator</strong> that wraps everything below it.</p>
+
+        <div class="color-picker">
+            <span class="label">Resin color</span>
+            <div id="color-list" class="color-list" role="radiogroup" aria-label="Resin color"></div>
+        </div>
+
+        <div id="decoration-list" class="decoration-list"></div>
+
+        <div class="stack-header">
+            <h3>Applied layers <small>(innermost first)</small></h3>
+            <button id="clear-button" class="link-button" type="button">Clear all</button>
+        </div>
+        <ol id="layer-stack" class="layer-stack"></ol>
+        <p id="empty-stack" class="empty">No layers yet. The piece is still plain wood.</p>
+    </section>
+
+    <!-- STEP 3: result -->
+    <section class="panel result" aria-labelledby="step-quote">
+        <h2 id="step-quote"><span class="step">3</span> Your quote</h2>
+
+        <div id="error-banner" class="error-banner" role="alert" hidden></div>
+
+        <div class="preview-wrap">
+            <svg id="preview" class="preview" viewBox="0 0 400 400" role="img" aria-label="Piece preview"></svg>
+        </div>
+
+        <div class="totals">
+            <div class="total">
+                <span class="label">Total price</span>
+                <strong id="total-price">-</strong>
+            </div>
+            <div class="total">
+                <span class="label">Working days</span>
+                <strong id="total-days">-</strong>
+            </div>
+        </div>
+
+        <p id="description" class="description"></p>
+
+        <div class="table-scroll">
+        <table class="breakdown">
+            <thead>
+            <tr><th>Layer</th><th>Class</th><th class="num">+ Price</th><th class="num">+ Days</th></tr>
+            </thead>
+            <tbody id="breakdown-body"></tbody>
+        </table>
+        </div>
+
+        <details class="code-box" open>
+            <summary>How Java builds this object</summary>
+            <pre><code id="java-expression"></code></pre>
+        </details>
+    </section>
+</main>
+
+<section class="explainer">
+    <h2>How the pattern maps to this workshop</h2>
+    <div class="roles">
+        <article><h3>Component</h3><code>ArtisanPiece</code><p>Interface shared by plain pieces and decorations.</p></article>
+        <article><h3>Concrete component</h3><code>WoodenBowl, JewelryBox, ...</code><p>The undecorated wooden piece.</p></article>
+        <article><h3>Decorator</h3><code>PieceDecorator</code><p>Abstract class that holds and delegates to another <code>ArtisanPiece</code>.</p></article>
+        <article><h3>Concrete decorators</h3><code>GoldLeafDecorator, ...</code><p>Each one adds its own description, price and days.</p></article>
+    </div>
+</section>
+
+<footer class="site-footer">
+    Software Patterns workshop &middot; Kevin Basante &amp; Arley Riascos
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
